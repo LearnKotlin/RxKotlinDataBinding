@@ -1,19 +1,16 @@
 package com.learnkotlin.rxkotlindatabinding.ui.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.learnkotlin.rxkotlindatabinding.R
 import com.learnkotlin.rxkotlindatabinding.ui.main.helper.TodoAdapter
 import com.learnkotlin.rxkotlindatabinding.ui.main.viewmodel.MainViewModel
+
 
 class MainFragment : Fragment(R.layout.main_fragment) {
 
@@ -30,6 +27,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.todo_listview)
         val adapter = TodoAdapter(viewModel.todos.value ?: listOf())
+
         recyclerView?.adapter = adapter
 
         viewModel.todos.observe(activity as AppCompatActivity, Observer {
@@ -39,7 +37,6 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         })
 
     }
-
 
 
 }

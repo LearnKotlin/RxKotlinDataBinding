@@ -1,5 +1,6 @@
 package com.learnkotlin.rxkotlindatabinding.ui.main.helper
 
+import android.graphics.Color
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +16,8 @@ import com.learnkotlin.rxkotlindatabinding.ui.main.model.Todo
 
 class TodoAdapter(var todoList: List<Todo>) : RecyclerView.Adapter<TodoAdapter.ViewHolder>() {
 
-    var handler = Handler()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-        var binding = DataBindingUtil.bind<TodoItemBinding>(LayoutInflater.from(parent.context).inflate(R.layout.todo_item, null))
-        return ViewHolder(binding)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
+         ViewHolder(DataBindingUtil.bind(LayoutInflater.from(parent.context).inflate(R.layout.todo_item, null)))
 
     override fun getItemCount(): Int {
         return todoList.size
@@ -33,16 +29,10 @@ class TodoAdapter(var todoList: List<Todo>) : RecyclerView.Adapter<TodoAdapter.V
 
     fun updateList(todoList: List<Todo>){
         this.todoList = todoList
-        handler.removeCallbacks(null)
-        handler.post {
-            notifyDataSetChanged()
-        }
-
+        notifyDataSetChanged()
     }
 
     class ViewHolder (val binding: TodoItemBinding?) : RecyclerView.ViewHolder(binding!!.root) {
-
-
         fun updateTodo(todo: Todo){
             binding?.todo = todo
             binding?.executePendingBindings()
