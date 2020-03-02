@@ -32,9 +32,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         val adapter = TodoAdapter(viewModel.todos.value ?: listOf())
         recyclerView?.adapter = adapter
 
-        var act = activity as AppCompatActivity
-
-        viewModel.todos.observe(act, Observer {
+        viewModel.todos.observe(activity as AppCompatActivity, Observer {
             viewModel.todos.value?.let {
                 adapter.updateList(it)
             }
