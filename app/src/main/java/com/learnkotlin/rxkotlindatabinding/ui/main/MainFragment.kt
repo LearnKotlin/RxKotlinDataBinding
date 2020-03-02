@@ -24,19 +24,16 @@ class MainFragment : Fragment(R.layout.main_fragment) {
 
     private lateinit var viewModel: MainViewModel
 
-
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
 
         val recyclerView = view?.findViewById<RecyclerView>(R.id.todo_listview)
-        recyclerView?.layoutManager = LinearLayoutManager(context)
         val adapter = TodoAdapter(viewModel.todos.value ?: listOf())
         recyclerView?.adapter = adapter
 
         var act = activity as AppCompatActivity
-        println("Todo is act "  +  act)
+
         viewModel.todos.observe(act, Observer {
             viewModel.todos.value?.let {
                 adapter.updateList(it)
