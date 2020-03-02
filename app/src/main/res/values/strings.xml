@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RxKotlinDataBinding</string>
+
+    <string name="todo_str">Todo: %s</string>
+    <string name="empty"></string>
+    <string name="assignee_str">Assignee: %s</string>
+</resources>

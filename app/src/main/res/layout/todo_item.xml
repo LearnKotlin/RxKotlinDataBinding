@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="todo"
+            type="com.learnkotlin.rxkotlindatabinding.ui.main.model.Todo" />
+
+    </data>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/todo_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".6"
+            android:padding="5dp"
+            android:text="@{String.format(@string/todo_str, todo.title)}"
+            android:textColor="@color/colorPrimary" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".4"
+            android:gravity="center">
+
+            <ProgressBar
+                android:id="@+id/progressBar_cyclic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:minWidth="50dp"
+                android:minHeight="50dp"
+                android:visibility="@{todo.assignedUsername == null ? View.VISIBLE : View.INVISIBLE}" />
+
+            <TextView
+                android:id="@+id/assignee"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:padding="5dp"
+                android:text="@{todo.assignedUsername == null ? @string/empty : String.format(@string/assignee_str, todo.assignedUsername)}"
+                android:textColor="@color/colorPrimary" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</layout>

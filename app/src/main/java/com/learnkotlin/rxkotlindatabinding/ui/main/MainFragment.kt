@@ -1,0 +1,50 @@
+package com.learnkotlin.rxkotlindatabinding.ui.main
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.annotation.Nullable
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.learnkotlin.rxkotlindatabinding.R
+import com.learnkotlin.rxkotlindatabinding.ui.main.helper.TodoAdapter
+import com.learnkotlin.rxkotlindatabinding.ui.main.viewmodel.MainViewModel
+
+class MainFragment : Fragment(R.layout.main_fragment) {
+
+
+    companion object {
+        fun newInstance() = MainFragment()
+    }
+
+    private lateinit var viewModel: MainViewModel
+
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
+
+        val recyclerView = view?.findViewById<RecyclerView>(R.id.todo_listview)
+        recyclerView?.layoutManager = LinearLayoutManager(context)
+        val adapter = TodoAdapter(viewModel.todos.value ?: listOf())
+        recyclerView?.adapter = adapter
+
+        var act = activity as AppCompatActivity
+        println("Todo is act "  +  act)
+        viewModel.todos.observe(act, Observer {
+            viewModel.todos.value?.let {
+                adapter.updateList(it)
+            }
+        })
+
+    }
+
+
+
+}
