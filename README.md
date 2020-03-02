@@ -1,2 +1,2 @@
 # RxKotlinDataBinding
-RXKotling sample with databinding
+RXKotlin sample with databinding
